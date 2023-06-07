@@ -468,6 +468,8 @@ contoh: + - 2 7 * 8 / 4 12
                 result_prefix = infixToPrefix(infix_expression)
 
                 grid_result = Table.grid(expand=True)
+                grid_result.add_column(ratio=1)
+                grid_result.add_column(ratio=1)
 
                 grid_result.add_row(
                     Panel(
@@ -491,6 +493,8 @@ contoh: + - 2 7 * 8 / 4 12
                 )
 
                 grid_process = Table.grid(expand=True)
+                grid_process.add_column(ratio=1)
+                grid_process.add_column(ratio=1)
 
                 grid_process.add_row(
                     Group(
