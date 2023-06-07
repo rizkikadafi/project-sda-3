@@ -467,13 +467,9 @@ contoh: + - 2 7 * 8 / 4 12
                 result_postfix = infixToPostfix(infix_expression)
                 result_prefix = infixToPrefix(infix_expression)
 
-                layout_result = Layout(name="result")
+                grid_result = Table.grid(expand=True)
 
-                layout_result.split_row(
-                    Layout(name="result_postfix", ratio=5),
-                    Layout(name="result_prefix", ratio=5),
-                )
-                layout_result["result_postfix"].update(
+                grid_result.add_row(
                     Panel(
                         Text(
                             f"\n{result_postfix[0]}\n",
@@ -482,9 +478,7 @@ contoh: + - 2 7 * 8 / 4 12
                         ),
                         title=f"[text_title]Postfix",
                         style="default",
-                    )
-                )
-                layout_result["result_prefix"].update(
+                    ),
                     Panel(
                         Text(
                             f"\n{result_prefix[0]}\n",
@@ -493,47 +487,38 @@ contoh: + - 2 7 * 8 / 4 12
                         ),
                         title=f"[text_title]Prefix",
                         style="default",
-                    )
-                )
-
-                layout_initial_infix = Layout(name="initial_infix")
-
-                layout_initial_infix["initial_infix"].split_row(
-                    Layout(name="for_postfix"),
-                    Layout(name="for_prefix"),
-                )
-
-                text_infix_postfix = Group(
-                    Align(
-                        Text("\nString Infix Awal", style="bold underline"),
-                        align="center",
-                    ),
-                    Align(Text(f"{result_postfix[1]}", style="bold"), align="center"),
-                )
-                text_infix_prefix = Group(
-                    Align(
-                        Text("\nString Infix Awal (Reverse)", style="bold underline"),
-                        align="center",
-                    ),
-                    Align(Text(f"{result_prefix[1]}", style="bold"), align="center"),
-                )
-
-                layout_initial_infix["for_postfix"].update(text_infix_postfix)
-                layout_initial_infix["for_prefix"].update(text_infix_prefix)
-
-                layout_table = Layout(name="table")
-
-                layout_table["table"].split_row(
-                    Layout(name="table_postfix"),
-                    Layout(
-                        name="table_prefix",
                     ),
                 )
-                layout_table["table_postfix"].update(
-                    Align(result_postfix[2], align="center")
+
+                grid_process = Table.grid(expand=True)
+
+                grid_process.add_row(
+                    Group(
+                        "\n",
+                        Align(
+                            Text("String Infix Awal", style="bold underline"),
+                            align="center",
+                        ),
+                        Align(
+                            Text(f"{result_postfix[1]}", style="bold"), align="center"
+                        ),
+                        "\n",
+                    ),
+                    Group(
+                        "\n",
+                        Align(
+                            Text("String Infix Awal (Reverse)", style="bold underline"),
+                            align="center",
+                        ),
+                        Align(
+                            Text(f"{result_prefix[1]}", style="bold"), align="center"
+                        ),
+                        "\n",
+                    ),
                 )
-                layout_table["table_prefix"].update(
-                    Align(result_prefix[2], align="center")
+                grid_process.add_row(
+                    Align(result_postfix[2], align="center"),
+                    Align(result_prefix[2], align="center"),
                 )
 
                 if Confirm.ask(
@@ -541,13 +526,12 @@ contoh: + - 2 7 * 8 / 4 12
                 ):
                     console.clear()
                     console.rule(program6.title, style="default")
-                    console.print(layout_result, height=5)
-                    console.print(layout_initial_infix, height=4)
-                    console.print(layout_table, height=28)
+                    console.print(Padding(grid_result, pad=(1, 0, 0, 0)))
+                    console.print(grid_process)
                 else:
                     console.clear()
                     console.rule(program6.title, style="default")
-                    console.print(Padding(layout_result, pad=(1, 0, 0, 1)), height=6)
+                    console.print(Padding(grid_result, pad=(1, 0, 0, 0)))
                 getpass.getpass("\nKlik 'Enter' untuk melanjutkan")
             case 2:
                 console.clear()
